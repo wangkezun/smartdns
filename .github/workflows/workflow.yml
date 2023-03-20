@@ -46,3 +46,21 @@ jobs:
         
       - name: ls
         run: ls -l
+        
+      - name: delete dep repo
+        run: rm -r smartdns
+      
+      - name: Git Commit and Push
+        # You may pin to the exact commit or the version.
+        # uses: github-actions-x/commit@722d56b8968bf00ced78407bbe2ead81062d8baa
+        uses: github-actions-x/commit@v2.9
+        with:
+          # Github Token with commit access
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Override branch to push to
+          push-branch: master
+          # Specify commit message
+          commit-message: auto update
+          email: admin@wkz.io
+          # Committer name. Default is name of the person or app that initiated the workflow.
+          name: wangkezun
