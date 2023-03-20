@@ -41,5 +41,8 @@ jobs:
       - name: compile
         run: cd smartdns && sh ./package/build-pkg.sh --platform linux --arch x86_64 --static
         
+      - name: copy target
+        run: cd smartdns/package && copy `ls -SF *.gz` ../..
+        
       - name: ls
-        run: ls -l smartdns/package
+        run: ls -l
