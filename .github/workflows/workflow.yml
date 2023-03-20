@@ -44,9 +44,6 @@ jobs:
       - name: copy target
         run: cd smartdns/package && cp `ls -SF *.gz` ../../smartdns.x86_64.tar.gz
         
-      - name: ls
-        run: ls -l
-        
       - name: delete dep repo
         run: rm -r smartdns
       
