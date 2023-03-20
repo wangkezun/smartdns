@@ -40,3 +40,6 @@ jobs:
           
       - name: compile
         run: cd smartdns && sh ./package/build-pkg.sh --platform linux --arch x86_64 --static
+        
+      - name: ls
+        run: ls -l smartdns/package
