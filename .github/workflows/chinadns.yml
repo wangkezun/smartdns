@@ -37,8 +37,7 @@ jobs:
       - name: delete dep repo
         run: rm -r dnsmasq-china-list
       - name: append nexitally domains
-        run: |
-          curl ${{secrets.NEXITALLY}} |grep -v Premium|awk -F ',' '{gsub(/ /,"",$2)gsub(/ /,"",$3);printf "domain-rules /%s/ -speed-check-mode tcp:%s -nameserver domestic\n",$2,$3}'|sort|uniq >> nexitally.conf
+        run: sh script/converter.sh ${{secrets.NEXITALLY}}
       - name: append flower domains
         run: |
           curl ${{secrets.FLOWER}} |grep -v Premium|awk -F ',' '{gsub(/ /,"",$2)gsub(/ /,"",$3);printf "domain-rules /%s/ -speed-check-mode tcp:%s -nameserver domestic\n",$2,$3}'|sort|uniq >> flower.conf
