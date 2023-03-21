@@ -37,6 +37,8 @@ jobs:
       - name: delete dep repo
         run: rm -r dnsmasq-china-list
       - name: append nexitally domains
+        run: curl ${{secrets.NEXITALLY}}
+      - name: append nexitally domains
         run: sh script/converter.sh '${{secrets.NEXITALLY}}'
       - name: append flower domains
         run: sh script/converter.sh '${{secrets.FLOWER}}'
