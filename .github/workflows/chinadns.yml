@@ -37,9 +37,9 @@ jobs:
       - name: delete dep repo
         run: rm -r dnsmasq-china-list
       - name: append nexitally domains
-        run: sh script/converter.sh ${{secrets.NEXITALLY}}
+        run: sh script/converter.sh '${{secrets.NEXITALLY}}'
       - name: append flower domains
-        run: sh script/converter.sh ${{secrets.FLOWER}}
+        run: sh script/converter.sh '${{secrets.FLOWER}}'
       - name: Git Commit and Push
         # You may pin to the exact commit or the version.
         # uses: github-actions-x/commit@722d56b8968bf00ced78407bbe2ead81062d8baa
