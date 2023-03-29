@@ -58,3 +58,8 @@ jobs:
           email: admin@wkz.io
           # Committer name. Default is name of the person or app that initiated the workflow.
           name: wangkezun
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            smartdns.x86_64.tar.gz
