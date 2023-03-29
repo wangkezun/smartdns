@@ -25,8 +25,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: install deps
         run: sudo apt -y install build-essential
-      - name: create release file
-        run: mkdir release
+      - name: mkdirs
+        run: mkdir -p release release/linux/amd64 release/linux/arm64 
 
       - name: Git Clone Action
         # You may pin to the exact commit or the version.
@@ -44,9 +44,9 @@ jobs:
         run: cd smartdns && sh ./package/build-pkg.sh --platform linux --arch arm64 --static
 
       - name: copy target
-        run: cd smartdns/package && cp `ls -SF *x86_64*.gz` ../../release/linux/smartdns.x86_64.tar.gz
+        run: cd smartdns/package && cp `ls -SF *x86_64*.gz` ../../release/linux/amd64/smartdns.x86_64.tar.gz
       - name: copy target
-        run: cd smartdns/package && cp `ls -SF *arm64*.gz` ../../release/smartdns.arm64.tar.gz
+        run: cd smartdns/package && cp `ls -SF *arm64*.gz` ../../release/linux/arm64/smartdns.arm64.tar.gz
     
       - name: ls
         run: ls -l smartdns/package
