@@ -99,3 +99,4 @@ jobs:
           file: release/*
           tag: release
           overwrite: true
+          file_glob: true
