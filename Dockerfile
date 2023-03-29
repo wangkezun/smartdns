@@ -1,5 +1,4 @@
 FROM --platform=$BUILDPLATFORM alpine:latest as builder
-LABEL previous-stage=smartdns-builder
 
 # prepare builder
 RUN apk add --update alpine-sdk bash dpkg openssl-dev linux-headers openssl-libs-static
