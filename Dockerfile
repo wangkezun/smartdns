@@ -1,7 +1,21 @@
 FROM --platform=$BUILDPLATFORM alpine:latest as builder
-LABEL previous-stage=builder
-ADD release/$BUILDPLATFORM/smartdns.*.tar.gz /
-RUN mkdir /release && cp /smartdns/etc /release/ -a && cp /smartdns/usr /release/ -a
+LABEL previous-stage=smartdns-builder
+
+# prepare builder
+RUN apk add --update alpine-sdk bash dpkg openssl-dev linux-headers openssl-libs-static
+RUN git clone https://github.com/pymumu/smartdns build/smartdns
+
+# do make
+COPY . /build/smartdns/
+RUN cd /build/smartdns && \
+    ash ./package/build-pkg.sh --platform linux --arch `dpkg --print-architecture` --static && \
+    \
+    ( cd package && tar -xvf *.tar.gz && chmod a+x smartdns/etc/init.d/smartdns ) && \
+    \
+    mkdir -p /release/var/log /release/var/run && \
+    cp package/smartdns/etc /release/ -a && \
+    cp package/smartdns/usr /release/ -a && \
+    cd / && rm -rf /build
 
 FROM --platform=$BUILDPLATFORM alpine:latest
 RUN apk add --no-cache tzdata
