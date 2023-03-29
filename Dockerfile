@@ -7,10 +7,6 @@ RUN git clone https://github.com/pymumu/smartdns build/smartdns
 WORKDIR /build/smartdns
 RUN ash ./package/build-pkg.sh --platform linux --arch `dpkg --print-architecture` --static
 RUN cd package && tar -xvf *.tar.gz && chmod a+x smartdns/etc/init.d/smartdns
-RUN mkdir -p /release/var/log /release/var/run
-RUN cp package/smartdns/etc /release/ -a
-RUN cp package/smartdns/usr /release/ -a
-RUN cd / && rm -rf /build
 
 FROM --platform=$BUILDPLATFORM alpine:latest
 RUN apk add --no-cache tzdata
