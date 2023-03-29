@@ -22,39 +22,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: install deps
-        run: sudo apt -y install build-essential
-      - name: mkdirs
-        run: mkdir -p release release/linux/amd64 release/linux/arm64 
-
-      - name: Git Clone Action
-        # You may pin to the exact commit or the version.
-        # uses: sudosubin/git-clone-action@8a93ce24d47782e30077508cccacf8a05a891bae
-        uses: sudosubin/git-clone-action@v1.0.1
-        with:
-          # Repository owner and name. Ex: sudosubin/git-clone-action
-          repository: pymumu/smartdns
-          path: smartdns
-
-      - name: compile x86_64
-        run: cd smartdns && sh ./package/build-pkg.sh --platform linux --arch x86_64 --static
-      
-      - name: compile arm64
-        run: cd smartdns && sh ./package/build-pkg.sh --platform linux --arch arm64 --static
-
-      - name: copy target
-        run: cd smartdns/package && cp `ls -SF *x86_64*.gz` ../../release/linux/amd64/smartdns.x86_64.tar.gz
-      - name: copy target
-        run: cd smartdns/package && cp `ls -SF *arm64*.gz` ../../release/linux/arm64/smartdns.arm64.tar.gz
-    
-      - name: ls
-        run: ls -l smartdns/package
-
-      - name: delete dep repo
-        run: rm -r smartdns
       # generate files 
-      - name: Git Clone Action
+      - name: clone dnsmasq-china-list
         # You may pin to the exact commit or the version.
         # uses: sudosubin/git-clone-action@8a93ce24d47782e30077508cccacf8a05a891bae
         uses: sudosubin/git-clone-action@v1.0.1
@@ -63,7 +32,7 @@ jobs:
           repository: felixonmars/dnsmasq-china-list
           path: dnsmasq-china-list
       
-      - name: generate smartdns
+      - name: generate china domain list
         run: cd dnsmasq-china-list && make SERVER=domestic SMARTDNS_SPEEDTEST_MODE=tcp:80 smartdns-domain-rules
       
       - name: copy conf files to master
@@ -104,7 +73,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: release/**/*
+          file: release/*
           tag: release
           overwrite: true
           file_glob: true
