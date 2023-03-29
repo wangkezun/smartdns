@@ -37,11 +37,14 @@ jobs:
           repository: pymumu/smartdns
           path: smartdns
 
-      - name: compile
+      - name: compile x86_64
         run: cd smartdns && sh ./package/build-pkg.sh --platform linux --arch x86_64 --static
+      
+      - name: compile arm64
+        run: cd smartdns && sh ./package/build-pkg.sh --platform linux --arch arm64 --static
 
       - name: copy target
-        run: cd smartdns/package && cp `ls -SF *.gz` ../../release/smartdns.x86_64.tar.gz
+        run: cd smartdns/package && cp `ls -SF *x86_64*.gz` ../../release/smartdns.x86_64.tar.gz
 
       - name: delete dep repo
         run: rm -r smartdns
