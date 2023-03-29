@@ -59,7 +59,10 @@ jobs:
           # Committer name. Default is name of the person or app that initiated the workflow.
           name: wangkezun
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: svenstaro/upload-release-action@v2
         with:
-          files: |
-            smartdns.x86_64.tar.gz
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: smartdns.x86_64.tar.gz
+          asset_name: smartdns.x86_64.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true
