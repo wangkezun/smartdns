@@ -1,6 +1,6 @@
 FROM --platform=$BUILDPLATFORM alpine:latest as builder
 LABEL previous-stage=builder
-ADD smartdns.x86_64.tar.gz /
+ADD release/$BUILDPLATFORM/smartdns.*.tar.gz /
 RUN mkdir /release && cp /smartdns/etc /release/ -a && cp /smartdns/usr /release/ -a
 
 FROM --platform=$BUILDPLATFORM alpine:latest
