@@ -7,6 +7,7 @@ FROM --platform=$BUILDPLATFORM alpine:latest
 RUN apk add --no-cache tzdata
 ENV TZ=Asia/Shanghai
 COPY --from=builder /release/ /
+COPY release/*.conf /etc/smartdns
 COPY *.conf /etc/smartdns
 ADD https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-smartdns.conf /etc/smartdns/anti-ad-smartdns.conf
 ADD https://raw.githubusercontent.com/wangkezun/surge/master/misc/microsoft%40cn.list /etc/smartdns/microsoft.list
