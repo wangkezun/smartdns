@@ -20,4 +20,6 @@ ADD https://raw.githubusercontent.com/wangkezun/surge/master/misc/microsoft%40cn
 ADD https://raw.githubusercontent.com/wangkezun/surge/master/misc/blizzard-cdn.list /etc/smartdns/blizzard-cdn.list
 VOLUME ["/var/run/smartdns"]
 EXPOSE 53/udp
+EXPOSE 53/tcp
+EXPOSE 853/tcp
 CMD ["/usr/sbin/smartdns", "-f", "-x"]
