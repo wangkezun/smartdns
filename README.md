@@ -3,3 +3,6 @@
 
 # daily compile smartdns
 # use at your own risk
+
+
+update in 20230605
